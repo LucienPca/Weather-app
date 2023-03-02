@@ -5,16 +5,12 @@ body {
 
 .footer {
   color: #bab8b8;
-margin-top: -60px;
-margin-left: 90px;
-font-size: 10px;
+  margin-top: -60px;
+  margin-left: 90px;
+  font-size: 10px;
 }
-
-@media (max-width: 576px) {
-  .small-icon {
-    max-width: 50%;
-    height: auto;
-  }
+.footer-link {
+  text-decoration: none;
 }
 
 .left-box {
@@ -196,4 +192,23 @@ button:hover {
 
 .loc-bttn {
   width: 20px;
+}
+
+/* style for smaller windows */
+
+@media (max-width: 768px) {
+  .left-box {
+    margin: 20px;
+  }
+  .city {
+    font-size: 16pt;
+    margin-left: 25px;
+  }
+  .temperature {
+    font-size: 20pt;
+  }
+  .form-group {
+    width: 90%;
+    margin-left: 20px;
+  }
 }
