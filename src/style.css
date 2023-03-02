@@ -165,6 +165,10 @@ ul {
   background-color: rgb(223, 249, 249);
 }
 
+.form-control:focus {
+  background-color: rgb(223, 249, 249);
+}
+
 #newCity {
   background-color: rgb(201, 221, 221);
 }
