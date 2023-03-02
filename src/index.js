@@ -52,7 +52,7 @@ function showTemperature(response) {
   let pressure = document.querySelector("#press");
   pressure.innerHTML = `${response.data.main.pressure} hPa`;
   let condition = document.querySelector("#condition");
-  condition.innerHTML = `${response.data.weather[0].main}`;
+  condition.innerHTML = `${response.data.weather[0].description}`;
 }
 
 //location button starts here
