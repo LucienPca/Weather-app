@@ -29,15 +29,25 @@
     <div class="container">
       <div class="row">
         <!-- Blue box on the left -->
-        <div class="col-6">
+        <div class="col-sm-6">
           <div class="left-box">
             <h1 id="week-day">Sunday</h1>
             <div class="date" id="full-date">05 February 2023, 09:45</div>
-            <img src="images/location.png" alt="Location pin" width="30" />
+            <img
+              src="images/location.png"
+              alt="Location pin"
+              width="30"
+              class="img-fluid"
+            />
             <p class="city" id="displayed-city"></p>
 
             <div class="weather">
-              <img src="images/sunny.png" alt="sunny icon" width="180px" />
+              <img
+                src="images/sunny.png"
+                alt="sunny icon"
+                width="180px"
+                class="img-fluid"
+              />
               <div class="temperature">
                 <span id="temp"></span> <a href="#" id="celsius">°C</a> |
                 <a href="#" id="fahrenheit">°F</a> <br /><span
@@ -49,17 +59,17 @@
         </div>
 
         <!-- Black Box on the right -->
-        <div class="col-6">
+        <div class="col-sm-6">
           <div class="right-box">
             <div class="row">
-              <div class="col-6">
+              <div class="col-sm-6">
                 <ul class="conditions">
                   <li>Pressure</li>
                   <li>Humidity</li>
                   <li>Wind</li>
                 </ul>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <ul class="condition-values">
                   <li id="press"></li>
                   <li id="humid"></li>
@@ -71,7 +81,7 @@
 
             <!-- First panel -->
             <div class="row justify-content-center">
-              <div class="col-2">
+              <div class="col-sm-2">
                 <div class="card border-0">
                   <div class="next-day">
                     <img
@@ -79,6 +89,7 @@
                       alt="sunny icon"
                       width="50px"
                       class="small-icon"
+                      class="img-fluid"
                     />
                     <p>
                       Tue <br />
@@ -89,7 +100,7 @@
               </div>
 
               <!-- Second panel -->
-              <div class="col-2">
+              <div class="col-sm-2">
                 <div class="card border-0">
                   <div class="other-days">
                     <img
@@ -97,6 +108,7 @@
                       alt="sunny icon"
                       width="50px"
                       class="small-icon"
+                      class="img-fluid"
                     />
                     <p>
                       Wed <br />
@@ -107,7 +119,7 @@
               </div>
 
               <!-- Third panel -->
-              <div class="col-2">
+              <div class="col-sm-2">
                 <div class="card border-0">
                   <div class="other-days">
                     <img
@@ -115,6 +127,7 @@
                       alt="sunny icon"
                       width="50px"
                       class="small-icon"
+                      class="img-fluid"
                     />
                     <p>
                       Thu <br />
@@ -125,7 +138,7 @@
               </div>
 
               <!-- Fourth panel -->
-              <div class="col-2">
+              <div class="col-sm-2">
                 <div class="card border-0">
                   <div class="other-days">
                     <img
@@ -133,6 +146,7 @@
                       alt="sunny icon"
                       width="50px"
                       class="small-icon"
+                      class="img-fluid"
                     />
                     <p>
                       Fry <br />
@@ -143,7 +157,7 @@
               </div>
 
               <!-- Fifth panel -->
-              <div class="col-2">
+              <div class="col-sm-2">
                 <div class="card border-0">
                   <div class="other-days">
                     <img
@@ -151,6 +165,7 @@
                       alt="sunny icon"
                       width="50px"
                       class="small-icon"
+                      class="img-fluid"
                     />
                     <p>
                       Sat <br />
@@ -164,7 +179,7 @@
             <!-- New city input form -->
 
             <div class="row justify-content-center">
-              <div class="col-6">
+              <div class="col-sm-6">
                 <form class="form-group" id="search-form">
                   <div class="input-group w-50">
                     <span class="input-group-text" id="newCity">
@@ -199,7 +214,7 @@
                   </div>
                 </form>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6">
                 <!-- Location button -->
 
                 <button id="gpsLoc" class="current-location">
@@ -207,6 +222,7 @@
                     src="images/location.png"
                     alt="Location"
                     class="loc-bttn"
+                    class="img-fluid"
                   />
                   Current location
                 </button>
@@ -216,6 +232,14 @@
             <!-- End of form -->
           </div>
         </div>
+      </div>
+      <div class="footer">
+        <p>
+          <a href="https://github.com/LucienPca/Weather-app" target="_blank"
+            >Open-source code</a
+          >
+          by Lucian Puca
+        </p>
       </div>
     </div>
 
