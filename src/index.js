@@ -6,7 +6,6 @@ function myTimer() {
   let date = new Date();
 
   let weekday = date.toLocaleString(`en-GB`, { weekday: "long" });
-
   let dateString = date.toLocaleDateString(`en-GB`, { dateStyle: "long" });
 
   let time = date.toLocaleTimeString(
