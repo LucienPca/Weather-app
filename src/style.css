@@ -81,7 +81,8 @@ h1 {
 }
 
 #condition {
-  text-transform: capitalize;
+  font-size: 18pt;
+  color: #e1e1e1;
 }
 
 .right-box {

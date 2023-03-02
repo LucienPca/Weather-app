@@ -40,6 +40,7 @@ function search(event) {
 
 //This displays the current temperature pulled from the API
 function showTemperature(response) {
+  console.log(response.data.weather[0].icon);
   let temperature = Math.round(response.data.main.temp);
   let temperatureElement = document.querySelector("#temp");
   temperatureElement.innerHTML = `${temperature}`; // This shows the temperature
@@ -52,8 +53,22 @@ function showTemperature(response) {
   let pressure = document.querySelector("#press");
   pressure.innerHTML = `${response.data.main.pressure} hPa`;
   let condition = document.querySelector("#condition");
-  condition.innerHTML = `${response.data.weather[0].description}`;
+  let description = response.data.weather[0].description; //this is used for the weather condition display
+  let capitalizedDescription =
+    description.charAt(0).toUpperCase() + description.slice(1);
+
+  condition.innerHTML = `${capitalizedDescription}`; //capitalizes the first letter in the condition response
+
+let icon = document.getElementById("weatherIcon");//this replaces the icon
+icon.setAttribute("src", `images/${response.data.weather[0].icon}.png`);
+
+
 }
+
+
+
+
+
 
 //location button starts here
 
