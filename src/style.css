@@ -105,14 +105,18 @@ ul {
   color: white;
   list-style: none;
   margin-top: 20px;
+  margin-left: 50px;
 }
-
+.col-sm-1 {
+  width: calc(90% / 6);
+}
 .card {
   padding-top: 20px;
   margin-top: 30px;
-  margin-left: -21px;
   border-radius: 20px;
   background: #1e1e1e;
+  margin-left: -13px;
+  width: 108px;
 }
 
 .next-day {
@@ -136,7 +140,7 @@ ul {
 .form-group {
   color: #fff;
   margin-top: 120px;
-  margin-left: 60px;
+  margin-left: 100px;
   width: 500px;
 }
 #search-button {
@@ -164,7 +168,7 @@ ul {
 .current-location {
   color: #fff;
   margin-top: 120px;
-  margin-left: 0px;
+  margin-left: 50px;
   background: rgb(71, 15, 255);
   background: linear-gradient(
     274deg,

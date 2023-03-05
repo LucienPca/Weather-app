@@ -47,7 +47,22 @@ function getForecast(coordinates) {
 
 //Forecast HTML inject starts here
 function displayForecast(response) {
+  //let forecatData = response.data.daily;
   console.log(response.data.daily);
+
+  let secondDayTemp = document.querySelector("#secondDayTemp");
+  secondDayTemp.innerHTML = Math.round(response.data.daily[0].temp.day) + `° C`;
+  let thirdDayTemp = document.querySelector("#thirdDayTemp");
+  thirdDayTemp.innerHTML = Math.round(response.data.daily[1].temp.day) + `° C`;
+  let fourthDayTemp = document.querySelector("#fourthDayTemp");
+  fourthDayTemp.innerHTML = Math.round(response.data.daily[2].temp.day) + `° C`;
+  let fifthDayTemp = document.querySelector("#fifthDayTemp");
+  fifthDayTemp.innerHTML = Math.round(response.data.daily[3].temp.day) + `° C`;
+  let sixthDayTemp = document.querySelector("#sixthDayTemp");
+  sixthDayTemp.innerHTML = Math.round(response.data.daily[4].temp.day) + `° C`;
+  let seventhDayTemp = document.querySelector("#seventhDayTemp");
+  seventhDayTemp.innerHTML =
+    Math.round(response.data.daily[4].temp.day) + `° C`;
 }
 
 //This displays the current temperature pulled from the API
