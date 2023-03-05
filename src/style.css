@@ -25,7 +25,7 @@ body {
       rgba(104, 173, 255, 0.8780287114845938) 44%,
       rgba(173, 241, 255, 1) 100%
     ),
-    url("https://images.pexels.com/photos/2303031/pexels-photo-2303031.jpeg");
+    url("https://raw.githubusercontent.com/LucienPca/Weather-app/main/images/conditions/01d.jpg");
   border-radius: 40px;
   background-size: cover;
   background-repeat: no-repeat;

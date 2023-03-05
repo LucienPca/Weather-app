@@ -123,6 +123,10 @@ function showTemperature(response) {
   let icon = document.getElementById("weatherIcon"); //this replaces the icon
   icon.setAttribute("src", `images/${response.data.weather[0].icon}.png`);
 
+  //update the left box icons
+  const leftBox = document.querySelector(".left-box");
+  leftBox.style.backgroundImage = `url("https://raw.githubusercontent.com/LucienPca/Weather-app/main/images/conditions/${response.data.weather[0].icon}.jpg")`;
+
   celsiusTemp = Math.round(response.data.main.temp); //defines the global variable celsiusTemp
 
   getForecast(response.data.coord); //function that picks the coordinatesfrom the returned API call
