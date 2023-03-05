@@ -40,29 +40,28 @@ function search(event) {
 //function that picks the coordinatesfrom the returned API call, used for the daily forecast
 function getForecast(coordinates) {
   let apiKey = "012116ce35bd8efe514166decfbdcb6c";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=-${coordinates.lon}&appid=${apiKey}&units=metric`;
-
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
 //Forecast HTML inject starts here
 function displayForecast(response) {
-  //let forecatData = response.data.daily;
-  console.log(response.data.daily);
+  console.log(response.data.daily[0].weather[0].icon);
 
-  let secondDayTemp = document.querySelector("#secondDayTemp");
-  secondDayTemp.innerHTML = Math.round(response.data.daily[0].temp.day) + `° C`;
-  let thirdDayTemp = document.querySelector("#thirdDayTemp");
-  thirdDayTemp.innerHTML = Math.round(response.data.daily[1].temp.day) + `° C`;
-  let fourthDayTemp = document.querySelector("#fourthDayTemp");
-  fourthDayTemp.innerHTML = Math.round(response.data.daily[2].temp.day) + `° C`;
-  let fifthDayTemp = document.querySelector("#fifthDayTemp");
-  fifthDayTemp.innerHTML = Math.round(response.data.daily[3].temp.day) + `° C`;
-  let sixthDayTemp = document.querySelector("#sixthDayTemp");
-  sixthDayTemp.innerHTML = Math.round(response.data.daily[4].temp.day) + `° C`;
-  let seventhDayTemp = document.querySelector("#seventhDayTemp");
-  seventhDayTemp.innerHTML =
-    Math.round(response.data.daily[4].temp.day) + `° C`;
+  //This uses loop to iterate over the elements that need to update with the temperature data.
+  for (let t = 1; t <= 6; t++) {
+    let dayTemp = document.querySelector(`#day${t}Temp`);
+    dayTemp.innerHTML = Math.round(response.data.daily[t - 1].temp.day) + `° C`;
+  }
+
+  //A loop that changes the forecats icons
+  for (let i = 1; i <= 6; i++) {
+    let dayIcon = document.querySelector(`#day${i}Icon`);
+    dayIcon.setAttribute(
+      "src",
+      `images/${response.data.daily[i - 1].weather[0].icon}.png`
+    );
+  }
 }
 
 //This displays the current temperature pulled from the API
