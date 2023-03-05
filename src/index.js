@@ -26,7 +26,7 @@ window.requestAnimationFrame(myTimer);
 
 //default load city data & API call
 function defaultCity(cityName) {
-  let apiKey = "012116ce35bd8efe514166decfbdcb6c";
+  let apiKey = "9eca7aac0b071aa16e3cb063adba0785";
   let apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`; //This searches for the City name on openweather
   axios.get(`${apiCall}`).then(showTemperature);
 }
@@ -40,7 +40,7 @@ function search(event) {
 
 ///function that picks the coordinates from the returned API call, used for the daily forecast
 function getForecast(coordinates) {
-  const apiKey = "012116ce35bd8efe514166decfbdcb6c";
+  const apiKey = "9eca7aac0b071aa16e3cb063adba0785";
   const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
@@ -48,9 +48,21 @@ function getForecast(coordinates) {
 //Forecast HTML inject starts here
 function displayForecast(response) {
   //This uses loop to iterate over the elements that need to update with the temperature data.
+
+  let cachedResponse; //creates a cache for the loop API calls
+
+  function makeApiCall() {
+    // Make API call and store response in cachedResponse variable
+    cachedResponse = response.data.daily;
+  }
+
+  // Call makeApiCall function once to get initial data
+  makeApiCall();
+
+  // Loop through cachedResponse variable instead of making new API calls
   for (let t = 1; t <= 6; t++) {
     const dayTemp = document.querySelector(`#day${t}Temp`);
-    dayTemp.innerHTML = `${Math.round(response.data.daily[t - 1].temp.day)}°C`;
+    dayTemp.innerHTML = `${Math.round(cachedResponse[t - 1].temp.day)}°C`;
 
     const fahrenheitSwitch = document.querySelector("#fahrenheit");
     fahrenheitSwitch.addEventListener("click", (event) =>
@@ -66,14 +78,14 @@ function displayForecast(response) {
   function convertToFahrenheit(event, t, response) {
     event.preventDefault();
     const fahrenheitTemp =
-      (Math.round(response.data.daily[t - 1].temp.day) * 9) / 5 + 32;
+      (Math.round(cachedResponse[t - 1].temp.day) * 9) / 5 + 32;
     const temperatureElement = document.querySelector(`#day${t}Temp`);
     temperatureElement.innerHTML = `${Math.round(fahrenheitTemp)}°F`;
   }
 
   function convertToCelsius(event, t, response) {
     event.preventDefault();
-    const celsiusTemp = Math.round(response.data.daily[t - 1].temp.day);
+    const celsiusTemp = Math.round(cachedResponse[t - 1].temp.day);
     const temperatureElement = document.querySelector(`#day${t}Temp`);
     temperatureElement.innerHTML = `${celsiusTemp}°C`;
   }
@@ -83,13 +95,13 @@ function displayForecast(response) {
     const dayIcon = document.querySelector(`#day${i}Icon`);
     dayIcon.setAttribute(
       "src",
-      `images/${response.data.daily[i - 1].weather[0].icon}.png`
+      `images/${cachedResponse[i - 1].weather[0].icon}.png`
     );
   }
 
   //date name starts here
   for (let d = 1; d <= 6; d++) {
-    const unixTimestamp = response.data.daily[d].dt;
+    const unixTimestamp = cachedResponse[d].dt;
     const date = new Date(unixTimestamp * 1000);
     const weekday = date.getDay();
     const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -145,7 +157,7 @@ function getGpsLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
 
-  let apiKey = "012116ce35bd8efe514166decfbdcb6c";
+  let apiKey = "9eca7aac0b071aa16e3cb063adba0785";
   let apiCallLoc = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiCallLoc).then(showTemperature);
 }
