@@ -125,7 +125,13 @@ function showTemperature(response) {
 
   //update the left box icons
   const leftBox = document.querySelector(".left-box");
-  leftBox.style.backgroundImage = `url("https://raw.githubusercontent.com/LucienPca/Weather-app/main/images/conditions/${response.data.weather[0].icon}.jpg")`;
+  leftBox.style.backgroundImage = `linear-gradient(
+  321deg,
+  rgba(71, 15, 255, 0.5) 0%,
+  rgba(104, 173, 255, 0.7) 44%,
+  rgba(173, 241, 255, 1) 100%
+),
+url("https://raw.githubusercontent.com/LucienPca/Weather-app/main/images/conditions/${response.data.weather[0].icon}.jpg")`;
 
   celsiusTemp = Math.round(response.data.main.temp); //defines the global variable celsiusTemp
 
