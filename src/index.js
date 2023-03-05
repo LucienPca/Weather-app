@@ -1,33 +1,34 @@
 // Date related code starts here
-
-setInterval(myTimer, 1000);
-
 function myTimer() {
-  let date = new Date();
+  const date = new Date();
 
-  let weekday = date.toLocaleString(`en-GB`, { weekday: "long" });
-  let dateString = date.toLocaleDateString(`en-GB`, { dateStyle: "long" });
+  const weekday = date.toLocaleString(`en-GB`, { weekday: "long" });
+  const dateString = date.toLocaleDateString(`en-GB`, { dateStyle: "long" });
 
-  let time = date.toLocaleTimeString(
-    `en-GB`,
-    { timeStyle: "medium" },
-    { hour: "2-digit" },
-    { minute: "2-digit" },
-    { hour12: false }
-  );
+  let time = date.toLocaleTimeString(`en-GB`, {
+    hour12: false,
+    timeStyle: "medium",
+  });
 
   let displayedDay = document.querySelector("#week-day");
   displayedDay.innerHTML = `${weekday}`;
 
   let fullDate = document.querySelector("#full-date");
   fullDate.innerHTML = `${dateString}, ${time}`;
-} // Date related ends starts here
+
+  // Schedule the next update
+  window.requestAnimationFrame(myTimer);
+}
+// Start the animation loop
+window.requestAnimationFrame(myTimer);
+
+// Date related ends starts here
 
 //default load city data & API call
 function defaultCity(cityName) {
   let apiKey = "012116ce35bd8efe514166decfbdcb6c";
-  let apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric`; //This searches for the City name on openweather
-  axios.get(`${apiCall}&appid=${apiKey}`).then(showTemperature);
+  let apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`; //This searches for the City name on openweather
+  axios.get(`${apiCall}`).then(showTemperature);
 }
 //search form
 function search(event) {
@@ -37,10 +38,10 @@ function search(event) {
   defaultCity(cityName);
 }
 
-//function that picks the coordinatesfrom the returned API call, used for the daily forecast
+///function that picks the coordinates from the returned API call, used for the daily forecast
 function getForecast(coordinates) {
-  let apiKey = "012116ce35bd8efe514166decfbdcb6c";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  const apiKey = "012116ce35bd8efe514166decfbdcb6c";
+  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -48,33 +49,38 @@ function getForecast(coordinates) {
 function displayForecast(response) {
   //This uses loop to iterate over the elements that need to update with the temperature data.
   for (let t = 1; t <= 6; t++) {
-    let dayTemp = document.querySelector(`#day${t}Temp`);
-    dayTemp.innerHTML = Math.round(response.data.daily[t - 1].temp.day) + `° C`;
+    const dayTemp = document.querySelector(`#day${t}Temp`);
+    dayTemp.innerHTML = `${Math.round(response.data.daily[t - 1].temp.day)}°C`;
 
-    function convertToFahrenheit(event) {
-      event.preventDefault();
-      let fahrenheitTemp =
-        (Math.round(response.data.daily[t - 1].temp.day) * 9) / 5 + 32;
-      let temperatureElement = document.querySelector(`#day${t}Temp`);
-      temperatureElement.innerHTML = Math.round(fahrenheitTemp) + "° F";
-    }
-    function convertToCelsius(event) {
-      event.preventDefault();
-      let celsiusTemp = Math.round(response.data.daily[t - 1].temp.day);
-      let temperatureElement = document.querySelector(`#day${t}Temp`);
-      temperatureElement.innerHTML = celsiusTemp + "° C";
-    }
+    const fahrenheitSwitch = document.querySelector("#fahrenheit");
+    fahrenheitSwitch.addEventListener("click", (event) =>
+      convertToFahrenheit(event, t, response)
+    );
 
-    let fahrenheitSwitch = document.querySelector("#fahrenheit");
-    fahrenheitSwitch.addEventListener("click", convertToFahrenheit);
-
-    let celsiusSwitch = document.querySelector("#celsius");
-    celsiusSwitch.addEventListener("click", convertToCelsius);
+    const celsiusSwitch = document.querySelector("#celsius");
+    celsiusSwitch.addEventListener("click", (event) =>
+      convertToCelsius(event, t, response)
+    );
+  }
+  //Conversion functions
+  function convertToFahrenheit(event, t, response) {
+    event.preventDefault();
+    const fahrenheitTemp =
+      (Math.round(response.data.daily[t - 1].temp.day) * 9) / 5 + 32;
+    const temperatureElement = document.querySelector(`#day${t}Temp`);
+    temperatureElement.innerHTML = `${Math.round(fahrenheitTemp)}°F`;
   }
 
-  //A loop that changes the forecats icons
+  function convertToCelsius(event, t, response) {
+    event.preventDefault();
+    const celsiusTemp = Math.round(response.data.daily[t - 1].temp.day);
+    const temperatureElement = document.querySelector(`#day${t}Temp`);
+    temperatureElement.innerHTML = `${celsiusTemp}°C`;
+  }
+
+  //A loop that changes the forecast icons
   for (let i = 1; i <= 6; i++) {
-    let dayIcon = document.querySelector(`#day${i}Icon`);
+    const dayIcon = document.querySelector(`#day${i}Icon`);
     dayIcon.setAttribute(
       "src",
       `images/${response.data.daily[i - 1].weather[0].icon}.png`
@@ -89,7 +95,7 @@ function displayForecast(response) {
     const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const weekdayName = weekdayNames[weekday];
 
-    let dayName = document.querySelector(`#day${d}Name`);
+    const dayName = document.querySelector(`#day${d}Name`);
     dayName.innerHTML = weekdayName;
   }
 }
