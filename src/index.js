@@ -108,8 +108,7 @@ fahrenheitSwitch.addEventListener("click", convertToFahrenheit);
 let celsiusSwitch = document.querySelector("#celsius");
 celsiusSwitch.addEventListener("click", convertToCelsius);
 
-
-// Change link colours starts here
+// Change C/F link colours starts here
 
 const celsiusLink = document.querySelector("#celsius");
 const fahrenheitLink = document.querySelector("#fahrenheit");
@@ -131,8 +130,5 @@ temperatureDiv.addEventListener("click", function (event) {
   } else if (event.target === fahrenheitLink) {
     fahrenheitLink.style.color = "white";
     celsiusLink.style.color = "#cdfeff";
-  } else {
-    celsiusLink.style.color = "#cdfeff";
-    fahrenheitLink.style.color = "#cdfeff";
   }
 });
