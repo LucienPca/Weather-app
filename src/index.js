@@ -23,7 +23,7 @@ function myTimer() {
   fullDate.innerHTML = `${dateString}, ${time}`;
 } // Date related ends starts here
 
-//default load city data
+//default load city data & API call
 function defaultCity(cityName) {
   let apiKey = "012116ce35bd8efe514166decfbdcb6c";
   let apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric`; //This searches for the City name on openweather
@@ -35,6 +35,19 @@ function search(event) {
   let searchInput = document.querySelector("#search-field");
   let cityName = searchInput.value; //This grabs the data from the City input form
   defaultCity(cityName);
+}
+
+//function that picks the coordinatesfrom the returned API call, used for the daily forecast
+function getForecast(coordinates) {
+  let apiKey = "012116ce35bd8efe514166decfbdcb6c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=-${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+//Forecast HTML inject starts here
+function displayForecast(response) {
+  console.log(response.data.daily);
 }
 
 //This displays the current temperature pulled from the API
@@ -61,6 +74,8 @@ function showTemperature(response) {
   icon.setAttribute("src", `images/${response.data.weather[0].icon}.png`);
 
   celsiusTemp = Math.round(response.data.main.temp); //defines the global variable celsiusTemp
+
+  getForecast(response.data.coord); //function that picks the coordinatesfrom the returned API call
 }
 
 //location button starts here
@@ -121,14 +136,4 @@ celsiusLink.addEventListener("click", function () {
 fahrenheitLink.addEventListener("click", function () {
   fahrenheitLink.style.color = "white";
   celsiusLink.style.color = "#cdfeff";
-});
-
-temperatureDiv.addEventListener("click", function (event) {
-  if (event.target === celsiusLink) {
-    celsiusLink.style.color = "white";
-    fahrenheitLink.style.color = "#cdfeff";
-  } else if (event.target === fahrenheitLink) {
-    fahrenheitLink.style.color = "white";
-    celsiusLink.style.color = "#cdfeff";
-  }
 });
