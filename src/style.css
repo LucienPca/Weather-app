@@ -65,7 +65,7 @@ h1 {
 }
 
 #celsius {
-  color: #cdfeff;
+  color: white;
   text-decoration: none;
 }
 #celsius:hover {
@@ -79,6 +79,7 @@ h1 {
 #fahrenheit:hover {
   color: rgb(200, 217, 241);
 }
+
 
 #condition {
   font-size: 18pt;

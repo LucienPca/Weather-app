@@ -107,3 +107,32 @@ fahrenheitSwitch.addEventListener("click", convertToFahrenheit);
 
 let celsiusSwitch = document.querySelector("#celsius");
 celsiusSwitch.addEventListener("click", convertToCelsius);
+
+
+// Change link colours starts here
+
+const celsiusLink = document.querySelector("#celsius");
+const fahrenheitLink = document.querySelector("#fahrenheit");
+
+celsiusLink.addEventListener("click", function () {
+  celsiusLink.style.color = "white";
+  fahrenheitLink.style.color = "#cdfeff";
+});
+
+fahrenheitLink.addEventListener("click", function () {
+  fahrenheitLink.style.color = "white";
+  celsiusLink.style.color = "#cdfeff";
+});
+
+temperatureDiv.addEventListener("click", function (event) {
+  if (event.target === celsiusLink) {
+    celsiusLink.style.color = "white";
+    fahrenheitLink.style.color = "#cdfeff";
+  } else if (event.target === fahrenheitLink) {
+    fahrenheitLink.style.color = "white";
+    celsiusLink.style.color = "#cdfeff";
+  } else {
+    celsiusLink.style.color = "#cdfeff";
+    fahrenheitLink.style.color = "#cdfeff";
+  }
+});
