@@ -50,6 +50,26 @@ function displayForecast(response) {
   for (let t = 1; t <= 6; t++) {
     let dayTemp = document.querySelector(`#day${t}Temp`);
     dayTemp.innerHTML = Math.round(response.data.daily[t - 1].temp.day) + `° C`;
+
+    function convertToFahrenheit(event) {
+      event.preventDefault();
+      let fahrenheitTemp =
+        (Math.round(response.data.daily[t - 1].temp.day) * 9) / 5 + 32;
+      let temperatureElement = document.querySelector(`#day${t}Temp`);
+      temperatureElement.innerHTML = Math.round(fahrenheitTemp) + "° F";
+    }
+    function convertToCelsius(event) {
+      event.preventDefault();
+      let celsiusTemp = Math.round(response.data.daily[t - 1].temp.day);
+      let temperatureElement = document.querySelector(`#day${t}Temp`);
+      temperatureElement.innerHTML = celsiusTemp + "° C";
+    }
+
+    let fahrenheitSwitch = document.querySelector("#fahrenheit");
+    fahrenheitSwitch.addEventListener("click", convertToFahrenheit);
+
+    let celsiusSwitch = document.querySelector("#celsius");
+    celsiusSwitch.addEventListener("click", convertToCelsius);
   }
 
   //A loop that changes the forecats icons
