@@ -84,7 +84,7 @@ function showTemperature(response) {
   let humidity = document.querySelector("#humid");
   humidity.innerHTML = `${response.data.main.humidity}%`;
   let wind = document.querySelector("#wind");
-  wind.innerHTML = Math.round(response.data.wind.speed) + " km/h";
+  wind.innerHTML = Math.round(response.data.wind.speed) + " m/s";
   let pressure = document.querySelector("#press");
   pressure.innerHTML = `${response.data.main.pressure} hPa`;
   let condition = document.querySelector("#condition");
