@@ -46,8 +46,6 @@ function getForecast(coordinates) {
 
 //Forecast HTML inject starts here
 function displayForecast(response) {
-  console.log(response.data.daily[0].weather[0].icon);
-
   //This uses loop to iterate over the elements that need to update with the temperature data.
   for (let t = 1; t <= 6; t++) {
     let dayTemp = document.querySelector(`#day${t}Temp`);
@@ -61,6 +59,18 @@ function displayForecast(response) {
       "src",
       `images/${response.data.daily[i - 1].weather[0].icon}.png`
     );
+  }
+
+  //date name starts here
+  for (let d = 1; d <= 6; d++) {
+    const unixTimestamp = response.data.daily[d].dt;
+    const date = new Date(unixTimestamp * 1000);
+    const weekday = date.getDay();
+    const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const weekdayName = weekdayNames[weekday];
+
+    let dayName = document.querySelector(`#day${d}Name`);
+    dayName.innerHTML = weekdayName;
   }
 }
 
