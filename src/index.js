@@ -59,6 +59,8 @@ function showTemperature(response) {
 
   let icon = document.getElementById("weatherIcon"); //this replaces the icon
   icon.setAttribute("src", `images/${response.data.weather[0].icon}.png`);
+
+  celsiusTemp = Math.round(response.data.main.temp); //defines the global variable celsiusTemp
 }
 
 //location button starts here
@@ -89,15 +91,17 @@ defaultCity("Rome, IT"); //default city to show on load
 
 function convertToFahrenheit(event) {
   event.preventDefault();
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
   let temperatureElement = document.querySelector("#temp");
-  temperatureElement.innerHTML = Math.round((29 * 9) / 5 + 32);
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
 }
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
-  temperatureElement.innerHTML = 29;
+  temperatureElement.innerHTML = celsiusTemp;
 }
 
+let celsiusTemp = null; //Global variable that's not contained in any functions, used to define the C temperature
 let fahrenheitSwitch = document.querySelector("#fahrenheit");
 fahrenheitSwitch.addEventListener("click", convertToFahrenheit);
 
