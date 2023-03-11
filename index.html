@@ -31,15 +31,15 @@
         <!-- Blue box on the left -->
         <div class="col-sm-6">
           <div class="left-box">
-            <h1 id="week-day">Sunday</h1>
+            <h1 id="week-day" class="d-flex">Sunday</h1>
             <div class="date" id="full-date">05 February 2023, 09:45</div>
             <img
               src="images/location.png"
               alt="Location pin"
               width="30"
-              class="img-fluid"
+              class="img-fluid d-flex"
             />
-            <p class="city" id="displayed-city"></p>
+            <p class="city d-flex" id="displayed-city"></p>
 
             <div class="weather">
               <img
@@ -64,15 +64,15 @@
         <div class="col-sm-6">
           <div class="right-box">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-6">
                 <ul class="conditions">
                   <li>Pressure</li>
                   <li>Humidity</li>
                   <li>Wind</li>
                 </ul>
               </div>
-              <div class="col-sm-6">
-                <ul class="condition-values">
+              <div class="col-6">
+                <ul class="condition-values ">
                   <li id="press"></li>
                   <li id="humid"></li>
                   <li id="wind"></li>
@@ -84,7 +84,7 @@
             <!-- First panel -->
             <div class="row justify-content-center">
               <div class="col-sm-1">
-                <div class="card border-0">
+                <div class="card border-0 d-flex">
                   <div class="next-day">
                     <img
                       src="images/01d.png"
@@ -203,7 +203,7 @@
                         width="16"
                         height="16"
                         fill="blue"
-                        class="bi bi-geo-alt"
+                        class="bi bi-geo-alt button-icon"
                         viewBox="0 0 16 16"
                       >
                         <path
