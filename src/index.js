@@ -1,4 +1,7 @@
 // Date related code starts here
+let displayedDay = document.querySelector("#week-day");
+let fullDate = document.querySelector("#full-date");
+
 function myTimer() {
   const date = new Date();
 
@@ -10,10 +13,8 @@ function myTimer() {
     timeStyle: "medium",
   });
 
-  let displayedDay = document.querySelector("#week-day");
   displayedDay.innerHTML = `${weekday}`;
 
-  let fullDate = document.querySelector("#full-date");
   fullDate.innerHTML = `${dateString}, ${time}`;
 
   // Schedule the next update
