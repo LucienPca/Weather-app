@@ -274,6 +274,6 @@ button:hover {
     margin: 5px;
   }
   .footer #unsplash-credits {
-  margin-left: 70px;
-}
+    margin-left: 40px;
+  }
 }
