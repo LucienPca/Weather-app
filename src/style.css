@@ -118,6 +118,11 @@ ul {
   margin-left: -13px;
   width: 108px;
 }
+.card:hover {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-10px);
+  transition: all 0.4s ease-in-out;
+}
 
 .next-day {
   padding-top: 110px;
