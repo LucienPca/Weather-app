@@ -203,9 +203,13 @@ const fahrenheitLink = document.querySelector("#fahrenheit");
 celsiusLink.addEventListener("click", function () {
   celsiusLink.style.color = "white";
   fahrenheitLink.style.color = "#cdfeff";
+  celsiusLink.style.cursor = "default";
+  fahrenheitLink.style.cursor = "pointer";
 });
 
 fahrenheitLink.addEventListener("click", function () {
   fahrenheitLink.style.color = "white";
   celsiusLink.style.color = "#cdfeff";
+  fahrenheitLink.style.cursor = "default";
+  celsiusLink.style.cursor = "pointer";
 });

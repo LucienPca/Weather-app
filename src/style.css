@@ -69,7 +69,7 @@ h1 {
   text-decoration: none;
 }
 #celsius:hover {
-  color: rgb(200, 217, 241);
+  cursor: default;
 }
 
 #fahrenheit {
