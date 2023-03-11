@@ -13,6 +13,13 @@ body {
   text-decoration: none;
 }
 
+.footer #unsplash-credits {
+  margin-left: 100px;
+}
+.unsplash-link {
+  text-decoration: none;
+}
+
 .left-box {
   overflow: hidden;
   margin: 60px;

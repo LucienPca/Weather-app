@@ -29,7 +29,35 @@ function defaultCity(cityName) {
   let apiKey = "9eca7aac0b071aa16e3cb063adba0785";
   let apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`; //This searches for the City name on openweather
   axios.get(`${apiCall}`).then(showTemperature);
+
+  //searches for images on unsplash and displays them according to the search value
+  const apiKeyimg = "JiQFagWv_fovw1fnzjHmgaYm1oIbUDalSwb8FMp5KNs";
+  const apiUrlimg = `https://api.unsplash.com/search/photos?query=${cityName}&orientation=portrait&client_id=${apiKeyimg}`;
+  axios
+    .get(apiUrlimg)
+    .then((response) => {
+      const results = response.data.results;
+      const randomIndex = Math.floor(Math.random() * results.length);
+      const imageUrl = results[randomIndex].urls.regular; //creates random array numbers to randomise the image output
+
+      const leftBox = document.querySelector(".left-box");
+      leftBox.style.backgroundImage = `linear-gradient(
+ 321deg,
+ rgba(71, 15, 255, 0.5) 0%,
+ rgba(104, 173, 255, 0.7) 44%,
+ rgba(173, 241, 255, 1) 100%
+),
+url("${imageUrl}")`;
+      //adds image credits
+      let unsplashCredits = document.querySelector("#unsplash-credits");
+      unsplashCredits.innerHTML = `Photo by ${response.data.results[randomIndex].user.first_name} ${response.data.results[randomIndex].user.last_name} on`;
+      const unsplashLink = document.querySelector(".unsplash-link");
+      const linkData = response.data.results[randomIndex].links.html;
+      unsplashLink.setAttribute(`href`, linkData);
+    })
+    .catch((error) => console.log(error));
 }
+
 //search form
 function search(event) {
   event.preventDefault();
@@ -134,16 +162,6 @@ function showTemperature(response) {
 
   let icon = document.getElementById("weatherIcon"); //this replaces the icon
   icon.setAttribute("src", `images/${response.data.weather[0].icon}.png`);
-
-  //update the left box icons
-  const leftBox = document.querySelector(".left-box");
-  leftBox.style.backgroundImage = `linear-gradient(
-  321deg,
-  rgba(71, 15, 255, 0.5) 0%,
-  rgba(104, 173, 255, 0.7) 44%,
-  rgba(173, 241, 255, 1) 100%
-),
-url("https://raw.githubusercontent.com/LucienPca/Weather-app/main/images/conditions/${response.data.weather[0].icon}.jpg")`;
 
   celsiusTemp = Math.round(response.data.main.temp); //defines the global variable celsiusTemp
 
