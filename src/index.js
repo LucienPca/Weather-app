@@ -232,3 +232,7 @@ fahrenheitLink.addEventListener("click", function () {
   fahrenheitLink.style.cursor = "default";
   celsiusLink.style.cursor = "pointer";
 });
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}

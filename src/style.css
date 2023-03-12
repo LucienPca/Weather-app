@@ -220,7 +220,7 @@ button:hover {
 
 @media (max-width: 560px) {
   .left-box {
-    margin: 20px;
+    margin: 10px 0;
   }
   .city {
     font-size: 16pt;
@@ -228,6 +228,16 @@ button:hover {
   .temperature {
     font-size: 20pt;
   }
+
+  .form-group {
+    margin-left: -100px;
+    width: -500px;
+  }
+
+  .input-group {
+    margin-left: 190px;
+  }
+
   .current-location,
   .form-control,
   .input-search,
@@ -238,6 +248,7 @@ button:hover {
   }
   .input-search {
     margin-right: 50px;
+    
   }
 
   .loc-bttn {

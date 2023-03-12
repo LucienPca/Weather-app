@@ -72,7 +72,7 @@
                 </ul>
               </div>
               <div class="col-6">
-                <ul class="condition-values ">
+                <ul class="condition-values">
                   <li id="press"></li>
                   <li id="humid"></li>
                   <li id="wind"></li>
@@ -226,6 +226,7 @@
                       value="Search"
                       class="input-search"
                       id="search-button"
+                      onclick="scrollToTop();"
                     />
                   </div>
                 </form>
@@ -233,7 +234,11 @@
               <div class="col-sm-6">
                 <!-- Location button -->
 
-                <button id="gpsLoc" class="current-location">
+                <button
+                  id="gpsLoc"
+                  class="current-location"
+                  onclick="scrollToTop();"
+                >
                   <img
                     src="images/location.png"
                     alt="Location"
