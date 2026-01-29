@@ -43,57 +43,94 @@ function search(event) {
 ///function that picks the coordinates from the returned API call, used for the daily forecast
 function getForecast(coordinates) {
   const apiKey = "9eca7aac0b071aa16e3cb063adba0785";
-  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
 //Forecast HTML inject starts here
 function displayForecast(response) {
   //This uses loop to iterate over the elements that need to update with the temperature data.
+  //The free forecast API returns 3-hour intervals, so we extract one forecast per day (around noon)
 
-  let cachedResponse; //creates a cache for the loop API calls
+  const forecastList = response.data.list;
 
-  function makeApiCall() {
-    // Make API call and store response in cachedResponse variable
-    cachedResponse = response.data.daily;
+  // Group forecasts by day and pick the one closest to noon (12:00)
+  const dailyForecasts = [];
+  const seenDates = new Set();
+
+  for (const forecast of forecastList) {
+    const date = new Date(forecast.dt * 1000);
+    const dateKey = date.toDateString();
+    const hour = date.getHours();
+
+    // Skip today's forecasts, only get future days
+    const today = new Date().toDateString();
+    if (dateKey === today) continue;
+
+    // Pick forecast closest to noon (between 11:00 and 14:00)
+    if (!seenDates.has(dateKey) && hour >= 11 && hour <= 14) {
+      seenDates.add(dateKey);
+      dailyForecasts.push(forecast);
+    }
+
+    if (dailyForecasts.length >= 6) break;
   }
 
-  // Call makeApiCall function once to get initial data
-  makeApiCall();
+  // If we don't have enough noon forecasts, fill with first forecast of each remaining day
+  if (dailyForecasts.length < 6) {
+    for (const forecast of forecastList) {
+      const date = new Date(forecast.dt * 1000);
+      const dateKey = date.toDateString();
+      const today = new Date().toDateString();
 
-  // Loop through cachedResponse variable instead of making new API calls
-  for (let t = 1; t <= 6; t++) {
+      if (dateKey === today) continue;
+
+      if (!seenDates.has(dateKey)) {
+        seenDates.add(dateKey);
+        dailyForecasts.push(forecast);
+      }
+
+      if (dailyForecasts.length >= 6) break;
+    }
+  }
+
+  // Cache the daily forecasts for conversion functions
+  const cachedResponse = dailyForecasts;
+
+  // Loop through forecast data to update temperature display
+  for (let t = 1; t <= Math.min(6, cachedResponse.length); t++) {
     const dayTemp = document.querySelector(`#day${t}Temp`);
-    dayTemp.innerHTML = `${Math.round(cachedResponse[t - 1].temp.day)}°C`;
+    dayTemp.innerHTML = `${Math.round(cachedResponse[t - 1].main.temp)}°C`;
 
     const fahrenheitSwitch = document.querySelector("#fahrenheit");
     fahrenheitSwitch.addEventListener("click", (event) =>
-      convertToFahrenheit(event, t, response)
+      convertToFahrenheit(event, t)
     );
 
     const celsiusSwitch = document.querySelector("#celsius");
     celsiusSwitch.addEventListener("click", (event) =>
-      convertToCelsius(event, t, response)
+      convertToCelsius(event, t)
     );
   }
+
   //Conversion functions
-  function convertToFahrenheit(event, t, response) {
+  function convertToFahrenheit(event, t) {
     event.preventDefault();
     const fahrenheitTemp =
-      (Math.round(cachedResponse[t - 1].temp.day) * 9) / 5 + 32;
+      (Math.round(cachedResponse[t - 1].main.temp) * 9) / 5 + 32;
     const temperatureElement = document.querySelector(`#day${t}Temp`);
     temperatureElement.innerHTML = `${Math.round(fahrenheitTemp)}°F`;
   }
 
-  function convertToCelsius(event, t, response) {
+  function convertToCelsius(event, t) {
     event.preventDefault();
-    const celsiusTemp = Math.round(cachedResponse[t - 1].temp.day);
+    const celsiusTemp = Math.round(cachedResponse[t - 1].main.temp);
     const temperatureElement = document.querySelector(`#day${t}Temp`);
     temperatureElement.innerHTML = `${celsiusTemp}°C`;
   }
 
   //A loop that changes the forecast icons
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= Math.min(6, cachedResponse.length); i++) {
     const dayIcon = document.querySelector(`#day${i}Icon`);
     dayIcon.setAttribute(
       "src",
@@ -102,8 +139,8 @@ function displayForecast(response) {
   }
 
   //date name starts here
-  for (let d = 1; d <= 6; d++) {
-    const unixTimestamp = cachedResponse[d].dt;
+  for (let d = 1; d <= Math.min(6, cachedResponse.length); d++) {
+    const unixTimestamp = cachedResponse[d - 1].dt;
     const date = new Date(unixTimestamp * 1000);
     const weekday = date.getDay();
     const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
